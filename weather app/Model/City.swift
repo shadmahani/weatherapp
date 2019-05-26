@@ -14,11 +14,17 @@ struct City {
     let name: String
     let region: String
     let country: String
+    let lon: String
+    let lat: String
+    let id: String
     
     init(json: JSON) {
         name = json["name"].stringValue
         region = json["region"].stringValue
         country = json["country"].stringValue
+        lon = json["lon"].stringValue
+        lat = json["lat"].stringValue
+        id = json["id"].stringValue
     }
 }
 
