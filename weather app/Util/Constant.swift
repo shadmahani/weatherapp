@@ -8,4 +8,8 @@
 
 import Foundation
 
-let key = "37acff12680444858db60617192505"
+enum ApiKeys: String {
+    case weather = "37acff12680444858db60617192505"
+}
+
+let baseUrl = "http://api.apixu.com/v1/"

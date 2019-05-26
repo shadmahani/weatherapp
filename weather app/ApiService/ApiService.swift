@@ -8,19 +8,15 @@
 
 import Alamofire
 import SwiftyJSON
-enum Result<T> {
-    case success(_ value: T)
-    case err(_ err: Error)
-}
-typealias completion<T> = (Result<T>)->Void
+
 class ApiService {
-    
     // singleton instance
     static let shared = ApiService()
     private init() {}
+    
     func serach(cityName: String, completion: @escaping completion<[City]>){
         
-        Alamofire.request("http://api.apixu.com/v1/search.json?key=\(key)&q=\(cityName)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (res) in
+        Alamofire.request("\(baseUrl)search.json?key=\(ApiKeys.weather.rawValue)&q=\(cityName)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (res) in
             guard res.result.error == nil else{
                 completion(.err(res.result.error!))
                 return
@@ -33,13 +29,14 @@ class ApiService {
                 let arrayJson = json.arrayValue
                 cities = arrayJson.compactMap({(json) -> City in return City(json: json)})
                 completion(.success(cities))
+                print(data)
             }catch let err {
                 print(err)
             }
         }
     }
     func currentWeather(cityName: String, completion: @escaping completion<Current>){
-        Alamofire.request("http://api.apixu.com/v1/current.json?key=\(key)&q=\(cityName)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (res) in
+        Alamofire.request("\(baseUrl)current.json?key=\(ApiKeys.weather.rawValue)&q=\(cityName)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (res) in
             guard res.result.error == nil else{
                 completion(.err(res.result.error!))
                 return
@@ -59,6 +56,8 @@ class ApiService {
                 print(err)
             }
         }
-        
     }
+    
+    
+    
 }

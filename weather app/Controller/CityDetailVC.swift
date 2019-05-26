@@ -17,9 +17,9 @@ class CityDetailVC: UIViewController {
             weatherIcon.downloadImageWithCache(stringUrl: "http:\(current!.icon)")
         }
     }
+    // MARK:- Components
     let weatherText: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Suny weather!"
         lbl.textAlignment = .center
         return lbl
     }()
@@ -27,15 +27,15 @@ class CityDetailVC: UIViewController {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
-        iv.image = UIImage(named: "swift")
         return iv
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-         setupView()
+         constraintSetup()
+        viewSetup()
     }
-    func setupView(){
+    // MARK:- Setup
+    func constraintSetup(){
         view.addSubview(weatherIcon)
         view.addSubview(weatherText)
         
@@ -52,5 +52,9 @@ class CityDetailVC: UIViewController {
             make.trailing.equalToSuperview().offset(-50)
             make.height.equalTo(weatherIcon.snp.width)
         }
+    }
+    func viewSetup(){
+        view.backgroundColor = .white
+        navigationItem.largeTitleDisplayMode = .never
     }
 }
