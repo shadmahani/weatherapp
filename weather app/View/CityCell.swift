@@ -9,14 +9,13 @@
 import UIKit
 import SnapKit
 class CityCell: UITableViewCell {
-
     
-    var isFav: Bool = false
     let cityNameLbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "City name here!"
         return lbl
     }()
+    
     lazy var faveButton: UIButton = {
         let btn = UIButton()
         btn.setImage(#imageLiteral(resourceName: "0"), for: .normal)
@@ -27,6 +26,8 @@ class CityCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         constraintSetup()
+        
+       
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -45,19 +46,9 @@ class CityCell: UITableViewCell {
             make.trailing.equalTo(faveButton.snp.leading)
             make.top.bottom.equalToSuperview()
         }
-      
+        
     }
     @objc func favBtnTapped(){
-
-        if !isFav {
-
-            faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
-            isFav = true
-
-        }else{
-            faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
-            isFav = false
-
-        }
+        
     }
 }

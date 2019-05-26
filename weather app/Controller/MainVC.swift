@@ -69,12 +69,16 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! CityCell
         let city = cities[indexPath.row]
-        cell.cityNameLbl.text = city.name
+       
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = cities[indexPath.row]
+        //TODO: For returning delete later---
+//        let cell = tableView.cellForRow(at: indexPath) as! CityCell
+//        print(cell.favorites)
+        
         ApiService.shared.currentWeather(cityName: "\(city.lat),\(city.lon)") { (result) in
             switch result {
             case .success(let value):
