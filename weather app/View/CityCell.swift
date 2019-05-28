@@ -51,14 +51,7 @@ class CityCell: UITableViewCell {
     }
     // MARK:- Action
     @objc func favBtnTapped(){
-        for faveCity in LocalData.shared.retrive() {
-            if faveCity.id == city.id {
-                if city.isFaved {
-                    
-                }
-                
-            }
-        }
+      
         if city.isFaved {
             faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
             LocalData.shared.remove(city: city)
