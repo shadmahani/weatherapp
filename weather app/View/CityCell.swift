@@ -28,8 +28,14 @@ class CityCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         constraintSetup()
+    }
+    override func layoutSubviews() {
         
-       
+//        if city.isFaved {
+//            faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
+//        }else{
+//            faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
+//        }
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -56,8 +62,8 @@ class CityCell: UITableViewCell {
             print("fave")
             city.isFaved = true
             Statics.shared.saveNew(food: city)
-
-
+            
+            
         }else{
             faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
             Statics.shared.remove(food: city)

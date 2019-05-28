@@ -35,6 +35,9 @@ class Statics {
             return [City]()
         }
     }
+//    func retriveSingle()-> City {
+//        
+//    }
 }//
 //  Statics.swift
 //  weather app
