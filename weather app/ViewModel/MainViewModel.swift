@@ -30,6 +30,7 @@ extension MainViewModel {
         }
     }
 }
+
 // MARK:- TableView data
 extension MainViewModel {
     
@@ -39,6 +40,7 @@ extension MainViewModel {
     
     func changeFavoriteButton(cell: CityCell, index: Int){
         var city = cities[index]
+        
         cell.faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
         city.isFaved = false
         

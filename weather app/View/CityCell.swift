@@ -60,7 +60,6 @@ class CityCell: UITableViewCell {
             faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
             city.isFaved = true
             LocalData.shared.add(city: city)
-            
         }
     }
 }

@@ -16,7 +16,6 @@ class MainVC: UIViewController {
         let tv = UITableView()
         return tv
     }()
-    
     // MARK:- Life cyle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,22 +57,17 @@ class MainVC: UIViewController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }
-    
     // MARK:- Actions
     @objc func barbuttonTapped(){
-        let favoriteVC = FavoriteVC()
-        favoriteVC.cities = viewModel.cities
-        navigationController?.pushViewController(favoriteVC, animated: true)
+        navigationController?.pushViewController(FavoriteVC(), animated: true)
     }
 }
 // MARK:- TableView
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfCities()
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! CityCell
         
@@ -82,14 +76,12 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.goToCityDetail(from: self, index: indexPath.row)
     }
 }
 // MARK:- SearchBar
 extension MainVC: UISearchBarDelegate {
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         viewModel.cities.removeAll()
         tableView.reloadData()
