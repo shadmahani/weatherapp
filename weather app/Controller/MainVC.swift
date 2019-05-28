@@ -27,6 +27,10 @@ class MainVC: UIViewController {
         navigationSetup()
        
     }
+    override func viewWillAppear(_ animated: Bool) {
+        // reload after removing favorite cities to change the button image
+        tableView.reloadData()
+    }
     // MARK:- Setups
     func navigationSetup(){
         title = "Weather app!"
@@ -36,6 +40,7 @@ class MainVC: UIViewController {
         navigationItem.rightBarButtonItem = barButton
     }
     func tableViewSetup(){
+        tableView.tableFooterView = UIView()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(CityCell.self, forCellReuseIdentifier: "cellID")
@@ -52,11 +57,14 @@ class MainVC: UIViewController {
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 
     // MARK:- Actions
     @objc func barbuttonTapped(){
-        navigationController?.pushViewController(FavoriteVC(), animated: true)
+        let favoriteVC = FavoriteVC()
+        favoriteVC.cities = cities
+        navigationController?.pushViewController(favoriteVC, animated: true)
     }
 }
 // MARK:- TableView

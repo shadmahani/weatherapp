@@ -29,7 +29,6 @@ class CityCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         constraintSetup()
     }
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

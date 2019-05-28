@@ -11,6 +11,7 @@ import UIKit
 class FavoriteVC: UITableViewController {
     
     var favCities = LocalData.shared.retrive()
+    var cities = [City]()
     // MARK:- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,13 +21,15 @@ class FavoriteVC: UITableViewController {
     }
     // MARK:- Setups
     func viewSetup(){
-        view.backgroundColor = .red
+        view.backgroundColor = .white
     }
     func navigationSetup(){
         navigationItem.largeTitleDisplayMode = .never
     }
     func tableViewSetup(){
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
+        tableView.tableFooterView = UIView()
+        tableView.register(CityCell.self, forCellReuseIdentifier: "cellID")
+        tableView.rowHeight = 40
     }
 }
 // MARK:- TableView
@@ -39,11 +42,30 @@ extension FavoriteVC {
         return favCities.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
-        let favorite = favCities[indexPath.row]
-        cell.textLabel?.text = favorite.name
-        cell.backgroundColor = .green
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! CityCell
+        let favoriteCity = favCities[indexPath.row]
+        cell.cityNameLbl.text = favoriteCity.name
+        if favoriteCity.isFaved {
+            cell.faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
+        }
+        cell.city = favoriteCity
+
+        
         return cell
     }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let favoriteCity = favCities[indexPath.row]
+        ApiService.shared.currentWeather(cityName: "\(favoriteCity.lat),\(favoriteCity.lon)") { (result) in
+            switch result {
+            case .success(let value):
+                let cityDetailVC = CityDetailVC()
+                cityDetailVC.current = value
+                self.navigationController?.pushViewController(cityDetailVC, animated: true)
+            case .err(let err):
+                print(err)
+            }
+        }
+    }
+    
     
 }
