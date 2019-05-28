@@ -10,15 +10,13 @@ import UIKit
 
 class FavoriteVC: UITableViewController {
     
-    var favCities = Statics.shared.retrive()
-    
+    var favCities = LocalData.shared.retrive()
+    // MARK:- Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(favCities)
         viewSetup()
         navigationSetup()
         tableViewSetup()
-        print(favCities.count)
     }
     // MARK:- Setups
     func viewSetup(){
@@ -31,7 +29,7 @@ class FavoriteVC: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
     }
 }
-
+// MARK:- TableView
 extension FavoriteVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {

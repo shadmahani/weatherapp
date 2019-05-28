@@ -18,6 +18,7 @@ struct City: Codable,Equatable {
     var lat: String
     var id: String
     var isFaved: Bool
+    
     init(json: JSON) {
         name = json["name"].stringValue
         region = json["region"].stringValue

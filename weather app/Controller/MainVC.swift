@@ -10,14 +10,15 @@ import UIKit
 import SnapKit
 class MainVC: UIViewController {
     
+    var cities = [City]()
+    var favoriteCities = [City]()
     // MARK:- Components
     var tableView: UITableView = {
         let tv = UITableView()
         return tv
     }()
-    var cities = [City]()
-    var favoriteCities = [City]()
-    
+  
+   // MARK:- Life cyle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewSetup()
@@ -70,8 +71,8 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! CityCell
         let city = cities[indexPath.row]
-        let favCity = Statics.shared.retrive()
-        for faveCity in Statics.shared.retrive() {
+        // reset the fave button image
+        for faveCity in LocalData.shared.retrive() {
             if faveCity.id == city.id {
                 cell.faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
             }else{
@@ -79,12 +80,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
         cell.cityNameLbl.text = city.name
-//        if favCity.isFaved {
-//            cell.faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
-//        }else{
-//            cell.faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
-//
-//        }
+
         cell.city = city
         
         return cell
