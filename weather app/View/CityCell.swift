@@ -51,17 +51,16 @@ class CityCell: UITableViewCell {
     }
     // MARK:- Action
     @objc func favBtnTapped(){
-      
+        
         if city.isFaved {
             faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
             LocalData.shared.remove(city: city)
             city.isFaved = false
-            print("not a fav")
         }else{
             faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
-            print("fave")
             city.isFaved = true
             LocalData.shared.add(city: city)
+            
         }
     }
 }
