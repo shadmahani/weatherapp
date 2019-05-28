@@ -10,13 +10,15 @@ import UIKit
 
 class FavoriteVC: UITableViewController {
     
+    var favCities = Statics.shared.retrive()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(favCities)
         viewSetup()
         navigationSetup()
         tableViewSetup()
+        print(favCities.count)
     }
     // MARK:- Setups
     func viewSetup(){
@@ -36,11 +38,14 @@ extension FavoriteVC {
         return 1
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return favCities.count
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
+        let favorite = favCities[indexPath.row]
+        cell.textLabel?.text = favorite.name
         cell.backgroundColor = .green
         return cell
     }
+    
 }

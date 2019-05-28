@@ -9,15 +9,15 @@
 import Foundation
 import SwiftyJSON
 
-struct City {
+struct City: Codable,Equatable {
     
-    let name: String
-    let region: String
-    let country: String
-    let lon: String
-    let lat: String
-    let id: String
-    
+    var name: String
+    var region: String
+    var country: String
+    var lon: String
+    var lat: String
+    var id: String
+    var isFaved: Bool
     init(json: JSON) {
         name = json["name"].stringValue
         region = json["region"].stringValue
@@ -25,6 +25,9 @@ struct City {
         lon = json["lon"].stringValue
         lat = json["lat"].stringValue
         id = json["id"].stringValue
+        isFaved = false
     }
+    
+   
 }
 

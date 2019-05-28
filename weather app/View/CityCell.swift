@@ -10,6 +10,8 @@ import UIKit
 import SnapKit
 class CityCell: UITableViewCell {
     
+    var city: City!
+    
     let cityNameLbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "City name here!"
@@ -49,6 +51,19 @@ class CityCell: UITableViewCell {
         
     }
     @objc func favBtnTapped(){
+        if !city.isFaved {
+            faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
+            print("fave")
+            city.isFaved = true
+            Statics.shared.saveNew(food: city)
+
+
+        }else{
+            faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
+            Statics.shared.remove(food: city)
+            city.isFaved = false
+            print("not a fav")
+        }
         
     }
 }

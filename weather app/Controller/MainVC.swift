@@ -16,6 +16,7 @@ class MainVC: UIViewController {
         return tv
     }()
     var cities = [City]()
+    var favoriteCities = [City]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class MainVC: UIViewController {
         constraintSetup()
         searchControllerSetup()
         navigationSetup()
+       
     }
     // MARK:- Setups
     func navigationSetup(){
@@ -53,7 +55,6 @@ class MainVC: UIViewController {
 
     // MARK:- Actions
     @objc func barbuttonTapped(){
-        
         navigationController?.pushViewController(FavoriteVC(), animated: true)
     }
 }
@@ -69,16 +70,21 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! CityCell
         let city = cities[indexPath.row]
-       
+        let favCity = Statics.shared.retrive()
+        
+        cell.cityNameLbl.text = city.name
+//        if favCity.isFaved {
+//            cell.faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
+//        }else{
+//            cell.faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
+//
+//        }
+        cell.city = city
         
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = cities[indexPath.row]
-        //TODO: For returning delete later---
-//        let cell = tableView.cellForRow(at: indexPath) as! CityCell
-//        print(cell.favorites)
-        
         ApiService.shared.currentWeather(cityName: "\(city.lat),\(city.lon)") { (result) in
             switch result {
             case .success(let value):
