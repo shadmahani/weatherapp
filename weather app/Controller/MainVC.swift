@@ -72,14 +72,16 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! CityCell
         let city = cities[indexPath.row]
         // reset the fave button image
+        cell.faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
+        cell.cityNameLbl.text = city.name
+
         for faveCity in LocalData.shared.retrive() {
             if faveCity.id == city.id {
+                print("EVEN")
                 cell.faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
-            }else{
-                cell.faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
+                
             }
         }
-        cell.cityNameLbl.text = city.name
 
         cell.city = city
         
