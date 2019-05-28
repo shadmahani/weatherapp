@@ -36,8 +36,8 @@ class LocalData {
             return [City]()
         }
         do {
-            let food = try JSONDecoder().decode([City].self, from: data)
-            return food.removeDuplicates()
+            let city = try JSONDecoder().decode([City].self, from: data)
+            return city.removeDuplicates()
         }catch let err {
             print(err)
             return [City]()
