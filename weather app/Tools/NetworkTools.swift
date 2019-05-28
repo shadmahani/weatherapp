@@ -6,10 +6,10 @@
 //  Copyright © 2019 hossein shademany. All rights reserved.
 //
 
-import Foundation
-
+// MARK:- Network helpers
 enum Result<T> {
     case success(_ value: T)
     case err(_ err: Error)
 }
+
 typealias completion<T> = (Result<T>)->Void

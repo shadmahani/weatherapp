@@ -29,6 +29,7 @@ class CityDetailVC: UIViewController {
         iv.clipsToBounds = true
         return iv
     }()
+    // MARK:- Life cyle
     override func viewDidLoad() {
         super.viewDidLoad()
          constraintSetup()

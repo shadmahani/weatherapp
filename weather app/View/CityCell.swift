@@ -8,38 +8,32 @@
 
 import UIKit
 import SnapKit
+
 class CityCell: UITableViewCell {
     
     var city: City!
-    
+    // MARK:- Components
     let cityNameLbl: UILabel = {
         let lbl = UILabel()
         lbl.text = "City name here!"
         return lbl
     }()
-    
     lazy var faveButton: UIButton = {
         let btn = UIButton()
         btn.setImage(#imageLiteral(resourceName: "0"), for: .normal)
         btn.addTarget(self, action: #selector(favBtnTapped), for: .touchUpInside)
         return btn
     }()
-    
+    // MARK:- Life cyle
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         constraintSetup()
     }
-    override func layoutSubviews() {
-        
-//        if city.isFaved {
-//            faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
-//        }else{
-//            faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
-//        }
-    }
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    // MARK:- Setup
     func constraintSetup(){
         addSubview(faveButton)
         addSubview(cityNameLbl)
@@ -56,20 +50,18 @@ class CityCell: UITableViewCell {
         }
         
     }
+    // MARK:- Action
     @objc func favBtnTapped(){
-        if !city.isFaved {
+        if city.isFaved {
+            faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
+            LocalData.shared.remove(city: city)
+            city.isFaved = false
+            print("not a fav")
+        }else{
             faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
             print("fave")
             city.isFaved = true
-            Statics.shared.saveNew(food: city)
-            
-            
-        }else{
-            faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
-            Statics.shared.remove(food: city)
-            city.isFaved = false
-            print("not a fav")
+            LocalData.shared.add(city: city)
         }
-        
     }
 }
