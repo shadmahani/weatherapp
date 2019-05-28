@@ -16,6 +16,7 @@ class MainVC: UIViewController {
         return tv
     }()
     var cities = [City]()
+    var favoriteCities = [City]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,16 +24,21 @@ class MainVC: UIViewController {
         constraintSetup()
         searchControllerSetup()
         navigationSetup()
+       
     }
     // MARK:- Setups
     func navigationSetup(){
         title = "Weather app!"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        let barButton = UIBarButtonItem(title: "Favorites", style: .plain, target: self, action: #selector(barbuttonTapped))
+        navigationItem.rightBarButtonItem = barButton
     }
     func tableViewSetup(){
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
+        tableView.register(CityCell.self, forCellReuseIdentifier: "cellID")
+        tableView.rowHeight = 40
     }
     func constraintSetup(){
         view.addSubview(tableView)
@@ -47,6 +53,10 @@ class MainVC: UIViewController {
         navigationItem.searchController = searchController
     }
 
+    // MARK:- Actions
+    @objc func barbuttonTapped(){
+        navigationController?.pushViewController(FavoriteVC(), animated: true)
+    }
 }
 // MARK:- TableView
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
@@ -58,14 +68,30 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
         return cities.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! CityCell
         let city = cities[indexPath.row]
-        cell.textLabel?.text = city.name
+        let favCity = Statics.shared.retrive()
+        for faveCity in Statics.shared.retrive() {
+            if faveCity.id == city.id {
+                cell.faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
+            }else{
+                cell.faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
+            }
+        }
+        cell.cityNameLbl.text = city.name
+//        if favCity.isFaved {
+//            cell.faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
+//        }else{
+//            cell.faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
+//
+//        }
+        cell.city = city
+        
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = cities[indexPath.row]
-        ApiService.shared.currentWeather(cityName: city.region) { (result) in
+        ApiService.shared.currentWeather(cityName: "\(city.lat),\(city.lon)") { (result) in
             switch result {
             case .success(let value):
                 let cityDetailVC = CityDetailVC()
