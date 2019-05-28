@@ -10,22 +10,21 @@ import UIKit
 import SnapKit
 class MainVC: UIViewController {
     
-    var cities = [City]()
-    var favoriteCities = [City]()
+    var viewModel = MainViewModel()
     // MARK:- Components
     var tableView: UITableView = {
         let tv = UITableView()
         return tv
     }()
-  
-   // MARK:- Life cyle
+    
+    // MARK:- Life cyle
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewSetup()
         constraintSetup()
         searchControllerSetup()
         navigationSetup()
-       
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         // reload after removing favorite cities to change the button image
@@ -59,72 +58,51 @@ class MainVC: UIViewController {
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
     }
-
+    
     // MARK:- Actions
     @objc func barbuttonTapped(){
         let favoriteVC = FavoriteVC()
-        favoriteVC.cities = cities
+        favoriteVC.cities = viewModel.cities
         navigationController?.pushViewController(favoriteVC, animated: true)
     }
 }
 // MARK:- TableView
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cities.count
+        return viewModel.numberOfCities()
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath) as! CityCell
-        var city = cities[indexPath.row]
         
-        cell.faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
-        city.isFaved = false
-        cell.cityNameLbl.text = city.name
-        
-        for faveCity in LocalData.shared.retrive() {
-            if faveCity.id == city.id {
-                print("EVEN")
-                cell.faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
-                city.isFaved = true
-            }
-        }
-        cell.city = city
+        viewModel.changeFavoriteButton(cell: cell, index: indexPath.row)
+        viewModel.cityLabel(index: indexPath.row, cell: cell)
         
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let city = cities[indexPath.row]
-        ApiService.shared.currentWeather(cityName: "\(city.lat),\(city.lon)") { (result) in
-            switch result {
-            case .success(let value):
-                let cityDetailVC = CityDetailVC()
-                cityDetailVC.current = value
-                self.navigationController?.pushViewController(cityDetailVC, animated: true)
-            case .err(let err):
-                print(err)
-            }
-        }
+        viewModel.goToCityDetail(from: self, index: indexPath.row)
     }
 }
 // MARK:- SearchBar
 extension MainVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        cities.removeAll()
+        viewModel.cities.removeAll()
         tableView.reloadData()
         
         guard let cityName = searchBar.text else{return}
-        ApiService.shared.serach(cityName: cityName) { (result) in
-            switch result {
-            case .success(let value):
-                self.cities = value
+        
+        viewModel.search(with: cityName) { (success) in
+            switch success {
+            case true:
                 self.tableView.reloadData()
-                print(value)
-            case .err(let err):
-                print(err)
+            case false:
+                //TODO: show message---
+                print("err")
             }
         }
     }
