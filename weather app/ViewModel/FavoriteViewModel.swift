@@ -9,17 +9,16 @@
 import UIKit
 
 class FavoriteViewModel {
-    var favCities = LocalData.shared.retrive()
-//    var cities = [City]()
+
 }
 // MARK:- TableView data
 extension FavoriteViewModel {
     
     func numberOfFavoriteCities()-> Int {
-        return favCities.count
+        return LocalData.shared.retrive().count
     }
     func changeFavoriteButton(cell: CityCell, index: Int){
-        let favoriteCity = favCities[index]
+        let favoriteCity = LocalData.shared.retrive()[index]
         cell.cityNameLbl.text = favoriteCity.name
         if favoriteCity.isFaved {
             cell.faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
@@ -28,7 +27,7 @@ extension FavoriteViewModel {
     }
     
     func goToCityDetail(from viewController: UIViewController, index: Int){
-        let favoriteCity = favCities[index]
+        let favoriteCity = LocalData.shared.retrive()[index]
         ApiService.shared.currentWeather(cityName: "\(favoriteCity.lat),\(favoriteCity.lon)") { (result) in
             switch result {
             case .success(let value):

@@ -16,6 +16,7 @@ class MainTabbarVC: UITabBarController {
     }
     // MARK:- Setup
     func tabbarSetup(){
+        
         // first vc
         let searchVC = SearchVC()
         searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
@@ -23,10 +24,13 @@ class MainTabbarVC: UITabBarController {
         let favoriteVC = FavoriteVC()
         favoriteVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
     
-        let controllers = [searchVC, favoriteVC]
+        let controllers = [favoriteVC, searchVC]
         // nav for each VC
         viewControllers = controllers.map{UINavigationController(rootViewController: $0)}
 
         
+    }
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        print(item)
     }
 }
