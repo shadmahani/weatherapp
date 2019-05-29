@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		558B22C3CE1F47C9322BC4DF /* Pods_weather_app.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A311B919E7AA7C7124AD4683 /* Pods_weather_app.framework */; };
+		94567549229E6E050017743F /* MainTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94567548229E6E050017743F /* MainTabbarVC.swift */; };
 		948500B3229916A900988899 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948500B2229916A900988899 /* AppDelegate.swift */; };
-		948500B5229916A900988899 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948500B4229916A900988899 /* MainVC.swift */; };
+		948500B5229916A900988899 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948500B4229916A900988899 /* SearchVC.swift */; };
 		948500BA229916AA00988899 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 948500B9229916AA00988899 /* Assets.xcassets */; };
 		948500C5229916E500988899 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948500C4229916E500988899 /* ApiService.swift */; };
 		948500C7229918B300988899 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 948500C6229918B300988899 /* Constant.swift */; };
@@ -29,9 +30,10 @@
 /* Begin PBXFileReference section */
 		131806CB838131196B5A77F8 /* Pods-weather app.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weather app.debug.xcconfig"; path = "Pods/Target Support Files/Pods-weather app/Pods-weather app.debug.xcconfig"; sourceTree = "<group>"; };
 		58C42C78683856C79A15AF32 /* Pods-weather app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-weather app.release.xcconfig"; path = "Pods/Target Support Files/Pods-weather app/Pods-weather app.release.xcconfig"; sourceTree = "<group>"; };
+		94567548229E6E050017743F /* MainTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarVC.swift; sourceTree = "<group>"; };
 		948500AF229916A900988899 /* weather app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "weather app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		948500B2229916A900988899 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		948500B4229916A900988899 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		948500B4229916A900988899 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		948500B9229916AA00988899 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		948500BE229916AA00988899 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		948500C4229916E500988899 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
@@ -133,7 +135,8 @@
 		948500C92299251000988899 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				948500B4229916A900988899 /* MainVC.swift */,
+				94567548229E6E050017743F /* MainTabbarVC.swift */,
+				948500B4229916A900988899 /* SearchVC.swift */,
 				948500F022995B2100988899 /* CityDetailVC.swift */,
 				94850100229A5BBF00988899 /* FavoriteVC.swift */,
 			);
@@ -317,7 +320,7 @@
 			files = (
 				9485012B229CF41100988899 /* Foundation + extension.swift in Sources */,
 				948500F122995B2100988899 /* CityDetailVC.swift in Sources */,
-				948500B5229916A900988899 /* MainVC.swift in Sources */,
+				948500B5229916A900988899 /* SearchVC.swift in Sources */,
 				94850134229D57ED00988899 /* FavoriteViewModel.swift in Sources */,
 				94850101229A5BBF00988899 /* FavoriteVC.swift in Sources */,
 				948500FF229A4A2800988899 /* CityCell.swift in Sources */,
@@ -327,6 +330,7 @@
 				948500EF2299578700988899 /* Current.swift in Sources */,
 				94850129229C4BDB00988899 /* LocalData.swift in Sources */,
 				948500FD229A496F00988899 /* NetworkTools.swift in Sources */,
+				94567549229E6E050017743F /* MainTabbarVC.swift in Sources */,
 				948500F52299630F00988899 /* UIImage + Extension.swift in Sources */,
 				948500C5229916E500988899 /* ApiService.swift in Sources */,
 				948500C7229918B300988899 /* Constant.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 
 class FavoriteViewModel {
     var favCities = LocalData.shared.retrive()
-    var cities = [City]()
+//    var cities = [City]()
 }
 // MARK:- TableView data
 extension FavoriteViewModel {

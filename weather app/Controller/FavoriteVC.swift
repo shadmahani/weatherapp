@@ -23,12 +23,15 @@ class FavoriteVC: UITableViewController {
         view.backgroundColor = .white
     }
     func navigationSetup(){
-        navigationItem.largeTitleDisplayMode = .never
+//        navigationItem.largeTitleDisplayMode = .never
     }
     func tableViewSetup(){
         tableView.tableFooterView = UIView()
         tableView.register(CityCell.self, forCellReuseIdentifier: "cellID")
         tableView.rowHeight = 40
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        print("hey")
     }
 }
 // MARK:- TableView
