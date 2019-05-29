@@ -39,7 +39,7 @@ class ApiService {
     
     func currentWeather(cityName: String, completion: @escaping completion<Current>){
         
-        Alamofire.request("\(baseUrl)current.json?key=\(ApiKeys.weather.rawValue)&q=\(cityName)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (res) in
+        Alamofire.request("\(baseUrl)forecast.json?key=\(ApiKeys.weather.rawValue)&q=\(cityName) &days=7", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: nil).responseJSON { (res) in
             guard res.result.error == nil else{
                 completion(.err(res.result.error!))
                 return

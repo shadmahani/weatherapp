@@ -16,10 +16,18 @@ class FavoriteVC: UITableViewController {
         super.viewDidLoad()
         viewSetup()
         tableViewSetup()
+        notificationSetup()
     }
     // MARK:- Setups
     func viewSetup(){
         view.backgroundColor = .white
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        // for updating favorite cities
+        tableView.reloadData()
+    }
+    func notificationSetup(){
+        NotificationCenter.default.addObserver(self, selector: #selector(favRemoved), name: NSNotification.Name("not fav"), object: nil)
     }
 
     func tableViewSetup(){
@@ -27,7 +35,9 @@ class FavoriteVC: UITableViewController {
         tableView.register(CityCell.self, forCellReuseIdentifier: "cellID")
         tableView.rowHeight = 40
     }
-    override func viewWillAppear(_ animated: Bool) {
+    
+    // MARK:- Action
+    @objc func favRemoved(){
         tableView.reloadData()
     }
 
