@@ -8,7 +8,7 @@
 
 import UIKit
 import SnapKit
-class MainVC: UIViewController {
+class SearchVC: UIViewController {
     
     var viewModel = MainViewModel()
     // MARK:- Components
@@ -22,7 +22,6 @@ class MainVC: UIViewController {
         tableViewSetup()
         constraintSetup()
         searchControllerSetup()
-        navigationSetup()
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -30,13 +29,6 @@ class MainVC: UIViewController {
         tableView.reloadData()
     }
     // MARK:- Setups
-    func navigationSetup(){
-        title = "Weather app!"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        let barButton = UIBarButtonItem(title: "Favorites", style: .plain, target: self, action: #selector(barbuttonTapped))
-        navigationItem.rightBarButtonItem = barButton
-    }
     func tableViewSetup(){
         tableView.tableFooterView = UIView()
         tableView.delegate = self
@@ -52,18 +44,18 @@ class MainVC: UIViewController {
         }
     }
     func searchControllerSetup(){
+        navigationController?.isToolbarHidden = true
+        
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
+        
     }
-    // MARK:- Actions
-    @objc func barbuttonTapped(){
-        navigationController?.pushViewController(FavoriteVC(), animated: true)
-    }
+
 }
 // MARK:- TableView
-extension MainVC: UITableViewDelegate, UITableViewDataSource {
+extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfCities()
@@ -81,7 +73,7 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 // MARK:- SearchBar
-extension MainVC: UISearchBarDelegate {
+extension SearchVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         viewModel.cities.removeAll()
         tableView.reloadData()

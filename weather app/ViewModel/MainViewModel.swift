@@ -16,7 +16,6 @@ class MainViewModel {
 // MARK:- Search bar
 extension MainViewModel {
     
-    
     func search(with text: String, completion: @escaping (_ success: Bool)->Void) {
         
         ApiService.shared.serach(cityName: text) { (result) in
@@ -32,14 +31,11 @@ extension MainViewModel {
         }
     }
 }
-
 // MARK:- TableView data
 extension MainViewModel {
-    
     func numberOfCities()-> Int{
         return cities.count
     }
-    
     func changeFavoriteButton(cell: CityCell, index: Int){
         var city = cities[index]
         

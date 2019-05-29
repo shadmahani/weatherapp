@@ -38,12 +38,13 @@ class CityCell: UITableViewCell {
         addSubview(cityNameLbl)
         
         faveButton.snp.makeConstraints { (make) in
-            make.top.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-10)
+            make.top.equalToSuperview().offset(10)
             make.width.equalTo(faveButton.snp.height)
-            make.trailing.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-10)
         }
         cityNameLbl.snp.makeConstraints { (make) in
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().offset(10)
             make.trailing.equalTo(faveButton.snp.leading)
             make.top.bottom.equalToSuperview()
         }
@@ -51,15 +52,18 @@ class CityCell: UITableViewCell {
     }
     // MARK:- Action
     @objc func favBtnTapped(){
-        
         if city.isFaved {
+            print(LocalData.shared.retrive().count)
             faveButton.setImage(#imageLiteral(resourceName: "0"), for: .normal)
             LocalData.shared.remove(city: city)
             city.isFaved = false
+            NotificationCenter.default.post(name: NSNotification.Name("not fav"), object: nil)
+            print(LocalData.shared.retrive().count)
         }else{
             faveButton.setImage(#imageLiteral(resourceName: "1"), for: .normal)
             city.isFaved = true
             LocalData.shared.add(city: city)
+
         }
     }
 }
