@@ -11,12 +11,12 @@ import SwiftyJSON
 
 struct City: Codable,Equatable {
     
-    var name: String
-    var region: String
-    var country: String
-    var lon: String
-    var lat: String
-    var id: String
+    private(set) var name: String
+    private(set) var  region: String
+    private(set) var  country: String
+    private(set) var lon: String
+    private(set) var lat: String
+    private(set) var id: String
     var isFaved: Bool
     
     init(json: JSON) {

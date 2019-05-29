@@ -9,6 +9,6 @@
 import Foundation
 
 struct Current {
-    let text: String
-    let icon: String
+    private(set) var text: String
+    private(set) var icon: String
 }

@@ -15,6 +15,8 @@ class MainViewModel {
 }
 // MARK:- Search bar
 extension MainViewModel {
+    
+    
     func search(with text: String, completion: @escaping (_ success: Bool)->Void) {
         
         ApiService.shared.serach(cityName: text) { (result) in

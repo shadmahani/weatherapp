@@ -79,6 +79,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		94567547229E5B4F0017743F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				94850128229C4BDB00988899 /* LocalData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
 		948500A6229916A900988899 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +108,7 @@
 		948500B1229916A900988899 /* weather app */ = {
 			isa = PBXGroup;
 			children = (
+				94567547229E5B4F0017743F /* Data */,
 				94850130229D451600988899 /* ViewModel */,
 				948500F2229962EF00988899 /* Tools */,
 				948500CC2299252300988899 /* Util */,
@@ -144,7 +153,6 @@
 			children = (
 				948500CE2299265100988899 /* City.swift */,
 				948500EE2299578700988899 /* Current.swift */,
-				94850128229C4BDB00988899 /* LocalData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
